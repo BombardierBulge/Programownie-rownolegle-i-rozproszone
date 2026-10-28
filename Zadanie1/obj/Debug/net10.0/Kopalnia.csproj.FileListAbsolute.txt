@@ -1,0 +1,14 @@
+/home/bocian/Projects/równoległe/bin/Debug/net10.0/Kopalnia
+/home/bocian/Projects/równoległe/bin/Debug/net10.0/Kopalnia.deps.json
+/home/bocian/Projects/równoległe/bin/Debug/net10.0/Kopalnia.runtimeconfig.json
+/home/bocian/Projects/równoległe/bin/Debug/net10.0/Kopalnia.dll
+/home/bocian/Projects/równoległe/bin/Debug/net10.0/Kopalnia.pdb
+/home/bocian/Projects/równoległe/obj/Debug/net10.0/Kopalnia.GeneratedMSBuildEditorConfig.editorconfig
+/home/bocian/Projects/równoległe/obj/Debug/net10.0/Kopalnia.AssemblyInfoInputs.cache
+/home/bocian/Projects/równoległe/obj/Debug/net10.0/Kopalnia.AssemblyInfo.cs
+/home/bocian/Projects/równoległe/obj/Debug/net10.0/Kopalnia.csproj.CoreCompileInputs.cache
+/home/bocian/Projects/równoległe/obj/Debug/net10.0/Kopalnia.dll
+/home/bocian/Projects/równoległe/obj/Debug/net10.0/refint/Kopalnia.dll
+/home/bocian/Projects/równoległe/obj/Debug/net10.0/Kopalnia.pdb
+/home/bocian/Projects/równoległe/obj/Debug/net10.0/Kopalnia.genruntimeconfig.cache
+/home/bocian/Projects/równoległe/obj/Debug/net10.0/ref/Kopalnia.dll
