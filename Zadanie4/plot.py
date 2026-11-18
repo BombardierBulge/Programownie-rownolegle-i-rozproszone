@@ -9,10 +9,10 @@ from TS import (RandomNumberGenerator, FlowShopProblem, TabuSearch,
                 ParallelTabuSearch, generate_processing_times)
 from server import DistributedTabuSearch, send_msg
 
-SIZES = [10, 20, 30, 50]      # liczba zadań n
+SIZES = [10, 20, 30, 50]
 MACHINES = 20
 ITERS = 3
-REPEATS = 3                            # bierzemy najlepszy czas
+REPEATS = 3
 
 
 def best_time(make_run):
@@ -25,7 +25,7 @@ def best_time(make_run):
 
 
 def accept_clients(srv, n):
-    srv.settimeout(1.0)                # dzięki temu Ctrl+C działa podczas czekania
+    srv.settimeout(1.0)
     conns = []
     while len(conns) < n:
         try:
@@ -46,18 +46,15 @@ def benchmark(conns, client_counts, worker_counts):
         problem = FlowShopProblem(n, MACHINES,
                                   generate_processing_times(n, MACHINES, rng, 1, 99))
 
-        # 1) sekwencyjnie (punkt odniesienia)
         t_seq, ref = best_time(lambda: TabuSearch(problem, 10, ITERS, rng).run())
-        row = {"n": n, "seq": t_seq / ITERS, "mp": {}, "dist": {}}   # czas JEDNEJ iteracji
+        row = {"n": n, "seq": t_seq / ITERS, "mp": {}, "dist": {}}
 
-        # 2) multiprocessing na tym komputerze
         for w in worker_counts:
             t, res = best_time(
                 lambda: ParallelTabuSearch(problem, 10, ITERS, rng, n_workers=w).run())
             assert res == ref, f"multiprocessing: wynik różny od sekwencyjnego (n={n}, w={w})"
             row["mp"][w] = t / ITERS
 
-        # 3) klient-serwer (tylko jeśli podłączono klientów)
         for k in client_counts:
             t, res = best_time(
                 lambda: DistributedTabuSearch(problem, 10, ITERS, rng, conns[:k]).run())
@@ -73,7 +70,6 @@ def plot(rows, client_counts, worker_counts):
     ns = [r["n"] for r in rows]
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(13, 5))
 
-    # lewy: czas jednej iteracji
     ax1.plot(ns, [r["seq"] for r in rows], "o-", color="black", label="sekwencyjnie")
     for w in worker_counts:
         ax1.plot(ns, [r["mp"][w] for r in rows], "s--", label=f"multiprocessing, {w} proc.")
@@ -86,7 +82,6 @@ def plot(rows, client_counts, worker_counts):
     ax1.grid(True, which="both", alpha=0.3)
     ax1.legend()
 
-    # prawy: przyspieszenie względem sekwencyjnej
     for w in worker_counts:
         ax2.plot(ns, [r["seq"] / r["mp"][w] for r in rows], "s--",
                  label=f"multiprocessing, {w} proc.")
@@ -134,7 +129,7 @@ if __name__ == "__main__":
     finally:
         for c in conns:
             try:
-                send_msg(c, None)          # koniec sesji
+                send_msg(c, None)
             except OSError:
                 pass
             c.close()

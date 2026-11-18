@@ -32,14 +32,14 @@ def client_main(host, port):
     sock.connect((host, port))
 
     while True:
-        init = recv_msg(sock)                   # początek przebiegu: problem + mój chunk
-        if init is None:                        # koniec całej sesji
+        init = recv_msg(sock)
+        if init is None:
             break
         problem, moves = init["problem"], init["moves"]
 
         while True:
             msg = recv_msg(sock)
-            if msg is None:                     # koniec jednego przebiegu TS
+            if msg is None:
                 break
             solution = msg["solution"]
 
